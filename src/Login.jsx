@@ -16,7 +16,7 @@ export const Login = (props) => {
         console.log(pass);
         try {
             const response = await login(email, pass);
-            if(response.message == 'Successfully Logged In!'){
+            if(response.message === 'Successfully Logged In!'){
                 setLoginSuccess(true);  
                 setLoginFail(false);
             }
