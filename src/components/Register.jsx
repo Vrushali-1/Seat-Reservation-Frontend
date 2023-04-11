@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { signup } from './services/signupService';
+import { signup } from '../services/signupService';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = (props) => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [finalPass, setFinalPass] = useState('');
@@ -15,7 +17,7 @@ export const Register = (props) => {
         try {
             const response = await signup(email, pass, name);
             if(response){
-                props.onFormSwitch('login')
+                navigate('/');
                 setSignupFail(false);
             }
           } catch (error) {
@@ -41,7 +43,9 @@ export const Register = (props) => {
             <button type="submit">Sign Up</button>
             {signupFail && <p style={{ color: 'Red', fontSize:'40px', fontWeight:'bold' }}>{message}</p>}
         </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
+        <button className="link-btn" onClick={() => navigate('/')}>Already have an account? Login here.</button>
     </div>
     )
 }
+
+export default Register;

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { login } from './services/loginService';
+import { login } from '../services/loginService';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export const Login = (props) => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [loginSuccess, setLoginSuccess] = useState(false);
     const [loginFail, setLoginFail] = useState(false);
 
 
@@ -17,13 +18,12 @@ export const Login = (props) => {
         try {
             const response = await login(email, pass);
             if(response.message === 'Successfully Logged In!'){
-                setLoginSuccess(true);  
+                navigate('/busreservation');
                 setLoginFail(false);
             }
           } catch (error) {
             console.log('error',error);
-            setLoginFail(true);
-            setLoginSuccess(false);  
+            setLoginFail(true); 
         }
     }
 
@@ -36,11 +36,12 @@ export const Login = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 <button type="submit">Log In</button>
-                {loginSuccess && <p style={{ color: 'green', fontSize:'40px', fontWeight:'bold' }}>Login Successful!</p>}
                 {loginFail && <p style={{ color: 'red', fontSize:'40px', fontWeight:'bold' }}>Login Failed!</p>}
 
             </form>
-            <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
+            <button className="link-btn" onClick={() => navigate('/register')}>Don't have an account? Register here.</button>
         </div>
     )
 }
+
+export default Login;
