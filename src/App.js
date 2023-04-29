@@ -1,27 +1,39 @@
 import React from "react";
-import './App.css';
-import  Login  from "./components/Login";
+
+import  Login  from "./components/Login.component";
 import Register  from "./components/Register";
 import  BusSearchComponent  from "./components/BusSearch";
 import  BusReservation  from "./components/BusReservation";
-import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import HeaderComponent from "./components/Header";
+import { Routes,Route, useLocation} from 'react-router-dom';
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";        
+//core
+import "primereact/resources/primereact.min.css";
+//icons
+import "primeicons/primeicons.css";                                         
+         
 function App() {
-  //const [currentForm, setCurrentForm] = useState('login');
-
-  // const toggleForm = (formName) => {
-  //   setCurrentForm(formName);
-  // }
-
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/' || location.pathname === '/register';
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/bussearch" element={<BusSearchComponent/>} />
-          <Route path="/busreservation" element={<BusReservation/>} />
-        </Routes>
-    </Router>
+     
+        {isAuthPage ? (
+          <Routes>
+            <Route exact path="/" element={<Login/>} />
+            <Route exact path="/register" element={<Register/>} />
+          </Routes>
+        ) : (
+          
+            <Routes>
+              <Route path="/bussearch" element={<BusSearchComponent/>} />
+              <Route path="/busreservation" element={<BusReservation/>} />
+              <Route path="/header" element={<HeaderComponent/>} />
+
+            </Routes>
+        )}
+    
     </div>
   );
 }

@@ -1,7 +1,11 @@
 import React from 'react';
+import HeaderComponent from './Header';
+import './BusSearch.css';
 
 const BusSearchComponent = () => {
-  return <h1>Bus Search!</h1>;
+  return <div>
+    <HeaderComponent/>
+  </div>
 };
 
 export default BusSearchComponent;

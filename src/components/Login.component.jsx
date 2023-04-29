@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { login } from '../services/loginService';
 import { useNavigate } from 'react-router-dom';
-
-
+import './Login.component.css';
 
 export const Login = (props) => {
     const navigate = useNavigate();
@@ -28,7 +27,8 @@ export const Login = (props) => {
     }
 
     return (
-        <div className="auth-form-container">
+        <div className="app">
+            <div className="auth-form-container">
             <h1>Bus Seat Reservation</h1>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email Id</label>
@@ -40,6 +40,7 @@ export const Login = (props) => {
 
             </form>
             <button className="link-btn" onClick={() => navigate('/register')}>Don't have an account? Register here.</button>
+            </div>
         </div>
     )
 }

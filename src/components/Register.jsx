@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signup } from '../services/signupService';
 import { useNavigate } from 'react-router-dom';
-
+import './Register.css';
 export const Register = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -27,24 +27,25 @@ export const Register = (props) => {
     }
 
     return (
-        <div className="auth-form-container">
-                        <h1>Bus Seat Reservation</h1>
-
+        <div className="app">
+            <div className="auth-form-container">
+                <h1>Bus Seat Reservation</h1>
             <h2>Register</h2>
-        <form className="register-form" onSubmit={handleSubmit}>
-            <label htmlFor="name">Full Name</label>
-            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Full Name" />
-            <label htmlFor="email">Email</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-            <label htmlFor="password">Password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)}type="password" placeholder="********" id="password" name="password" />
-            <label htmlFor="password">Re-Enter-Password</label>
-            <input value={finalPass} onChange={(e) => setFinalPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-            <button type="submit">Sign Up</button>
-            {signupFail && <p style={{ color: 'Red', fontSize:'40px', fontWeight:'bold' }}>{message}</p>}
-        </form>
-        <button className="link-btn" onClick={() => navigate('/')}>Already have an account? Login here.</button>
-    </div>
+            <form className="register-form" onSubmit={handleSubmit}>
+                <label htmlFor="name">Full Name</label>
+                <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Full Name" />
+                <label htmlFor="email">Email</label>
+                <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                <label htmlFor="password">Password</label>
+                <input value={pass} onChange={(e) => setPass(e.target.value)}type="password" placeholder="********" id="password" name="password" />
+                <label htmlFor="password">Re-Enter-Password</label>
+                <input value={finalPass} onChange={(e) => setFinalPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                <button type="submit">Sign Up</button>
+                {signupFail && <p style={{ color: 'Red', fontSize:'40px', fontWeight:'bold' }}>{message}</p>}
+            </form>
+            <button className="link-btn" onClick={() => navigate('/')}>Already have an account? Login here.</button>
+            </div>
+        </div>
     )
 }
 
