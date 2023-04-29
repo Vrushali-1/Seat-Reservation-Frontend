@@ -47,6 +47,13 @@ function BusReservation() {
     }
     alert(`Reservation details: \n Name: ${name} \n Tickets: ${tickets} \n From: ${from} \n To: ${to} \n Date: ${date.toLocaleDateString()} \n Time: ${time}`);
   }
+  // Generate an array of time options every hour from 9am to 5pm
+  const timeOptions = [];
+  for (let i = 9; i <= 17; i++) {
+    const timeString = i.toString().padStart(2, '0') + ':00';
+    timeOptions.push(<option key={timeString} value={timeString}>{timeString}</option>);
+  }
+
 
   return (
     <div>
@@ -64,11 +71,29 @@ function BusReservation() {
       </div>
       <div>
         <label>From:</label>
-        <input type="text" value={from} onChange={handleFromChange} />
+        <select value={from} onChange={handleFromChange}>
+        <option value="">Select origin</option>
+        <option value="Arb">Arbutus</option>
+        <option value="Aru">Arundel</option>
+        <option value="Bwi">BWI MARC</option>
+        <option value="Cat">Catonsville</option>
+        <option value="Dow">Downtown</option>
+        <option value="Par">Paradise</option>
+        <option value="Rou">Route 40</option>
+        </select>
       </div>
       <div>
         <label>To:</label>
-        <input type="text" value={to} onChange={handleToChange} />
+        <select value={to} onChange={handleToChange}>
+        <option value="">Select destination</option>
+        <option value="Arb">Arbutus</option>
+        <option value="Aru">Arundel</option>
+        <option value="Bwi">BWI MARC</option>
+        <option value="Cat">Catonsville</option>
+        <option value="Dow">Downtown</option>
+        <option value="Par">Paradise</option>
+        <option value="Rou">Route 40</option>
+        </select>
       </div>
       <div>
         <label>Date:</label>

@@ -8,7 +8,7 @@ import '../bus-png-20140.png'
 const HeaderComponent = () => {
   const items = [
     {
-        label: 'File',
+        label: 'Home',
         icon: 'pi pi-fw pi-file',
         items: [
             {
@@ -40,7 +40,7 @@ const HeaderComponent = () => {
         ]
     },
     {
-        label: 'Edit',
+        label: 'History',
         icon: 'pi pi-fw pi-pencil',
         items: [
             {
@@ -63,16 +63,16 @@ const HeaderComponent = () => {
         ]
     },
     {
-        label: 'Users',
+        label: 'Help',
         icon: 'pi pi-fw pi-user',
         items: [
             {
-                label: 'New',
+                label: 'Request a Bus',
                 icon: 'pi pi-fw pi-user-plus',
 
             },
             {
-                label: 'Delete',
+                label: 'Cancel booking',
                 icon: 'pi pi-fw pi-user-minus',
 
             },
@@ -129,7 +129,7 @@ const HeaderComponent = () => {
         ]
     },
     {
-        label: 'Quit',
+        label: 'Logout',
         icon: 'pi pi-fw pi-power-off'
     }
 ];
