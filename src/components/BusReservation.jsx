@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
+import { Link } from 'react-router-dom';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-time-picker/dist/TimePicker.css';
 import HeaderComponent  from '../components/Header';
@@ -8,8 +10,8 @@ import './BusReservation.css';
 function BusReservation() {
   
 
-  const [name, setName] = useState("");
-  const [tickets, setTickets] = useState(0);
+ // const [name, setName] = useState("");
+ // const [tickets, setTickets] = useState(0);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
@@ -30,16 +32,17 @@ function BusReservation() {
   const handleTimeChange = (event) => {
     setTime(event.target.value);
   }
+  
 
 
 
   const handleBook = () => {
-    if (name === "" || tickets === 0 || from === "" || to === "") {
+    if ( from ===""|| to === "" || date === "" || time === "") {
       alert("Please enter all details.");
       return;
     }
-    alert(`Reservation details: \n Name: ${name} \n Tickets: ${tickets} \n From: ${from} \n To: ${to} \n Date: ${date.toLocaleDateString()} \n Time: ${time}`);
-  }
+    alert(`Reservation details: \n From: ${from} \n To: ${to} \n Date: ${date.toLocaleDateString()} \n Time: ${time}`);
+  }//fix alert problem if any dropdown is empty they it should pop up alert
   
 
   return (
@@ -95,9 +98,13 @@ function BusReservation() {
         <option value="J">7:00 PM</option>
         </select>
       </div>
-      <button onClick={handleBook}>Book</button>
+      <Link to="/BusSearch">
+        <button>Book</button>
+      </Link>
     </div>
+    
   );
+  
 }
 
 export default BusReservation;
