@@ -1,0 +1,36 @@
+.BusReservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .BusReservation label {
+    font-size: 18px;
+    margin-right: 20px;
+  }
+  
+  .BusReservation input[type="text"], .BusReservation input[type="number"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    width: 300px;
+  }
+  
+  .BusReservation button {
+    padding: 8px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .BusReservation button:hover {
+    background-color: #0069d9;
+  }
+  

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import TimePicker from 'react-time-picker';
 import 'react-time-picker/dist/TimePicker.css';
 import HeaderComponent  from '../components/Header';
 import './BusReservation.css';
@@ -14,15 +13,8 @@ function BusReservation() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState("09:00");
+  const [time, setTime] = useState("");
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  }
-
-  const handleTicketsChange = (event) => {
-    setTickets(event.target.value);
-  }
 
   const handleFromChange = (event) => {
     setFrom(event.target.value);
@@ -35,10 +27,11 @@ function BusReservation() {
   const handleDateChange = (date) => {
     setDate(date);
   }
-
-  const handleTimeChange = (time) => {
-    setTime(time);
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
   }
+
+
 
   const handleBook = () => {
     if (name === "" || tickets === 0 || from === "" || to === "") {
@@ -47,13 +40,7 @@ function BusReservation() {
     }
     alert(`Reservation details: \n Name: ${name} \n Tickets: ${tickets} \n From: ${from} \n To: ${to} \n Date: ${date.toLocaleDateString()} \n Time: ${time}`);
   }
-  // Generate an array of time options every hour from 9am to 5pm
-  const timeOptions = [];
-  for (let i = 9; i <= 17; i++) {
-    const timeString = i.toString().padStart(2, '0') + ':00';
-    timeOptions.push(<option key={timeString} value={timeString}>{timeString}</option>);
-  }
-
+  
 
   return (
     <div>
@@ -61,14 +48,7 @@ function BusReservation() {
       <div>
       <HeaderComponent/>
     </div>
-      <div>
-        <label>Name:</label>
-        <input type="text" value={name} onChange={handleNameChange} />
-      </div>
-      <div>
-        <label>No of tickets:</label>
-        <input type="number" value={tickets} onChange={handleTicketsChange} />
-      </div>
+      
       <div>
         <label>From:</label>
         <select value={from} onChange={handleFromChange}>
@@ -100,8 +80,20 @@ function BusReservation() {
         <DatePicker selected={date} onChange={handleDateChange} />
       </div>
       <div>
-        <label>Time:</label>
-        <TimePicker value={time} onChange={handleTimeChange} disableClock format="HH:mm" minTime="09:00" maxTime="21:00" step={60} />
+      <label>Time:</label>
+        <select value={time} onChange={handleTimeChange}>
+        <option value="">Select time</option>
+        <option value="A">9:00 AM</option>
+        <option value="B">10:00 AM</option>
+        <option value="C">11:00 AM</option>
+        <option value="D">12:00 PM</option>
+        <option value="E">1:00 PM</option>
+        <option value="F">3:00 PM</option>
+        <option value="G">4:00 PM</option>
+        <option value="H">5:00 PM</option>
+        <option value="I">6:00 PM</option>
+        <option value="J">7:00 PM</option>
+        </select>
       </div>
       <button onClick={handleBook}>Book</button>
     </div>
