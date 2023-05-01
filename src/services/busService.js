@@ -1,7 +1,7 @@
 export async function searchBus(from,to,travelDate) {
     const day = travelDate.getDate();
     travelDate.setDate(day - 1);
-    const response = await fetch('http://localhost:8080/bus/find', {
+    const response = await fetch('https://seat-reservation-backend-production.up.railway.app/bus/find', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ departure:from, destination:to,travel_date:travelDate }),
@@ -16,7 +16,7 @@ export async function searchBus(from,to,travelDate) {
 }
 
 export async function searchBusById(busId) {
-  const response = await fetch('http://localhost:8080/bus/findbyId', {
+  const response = await fetch('https://seat-reservation-backend-production.up.railway.app/bus/findbyId', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ bus_id:busId }),
@@ -31,7 +31,7 @@ export async function searchBusById(busId) {
 }
 
 export async function getSeats() {
-  const response = await fetch('http://localhost:8080/bus/seats/find', {
+  const response = await fetch('https://seat-reservation-backend-production.up.railway.app/bus/seats/find', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   });
