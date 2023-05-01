@@ -12,3 +12,18 @@ export async function createBooking(studentId,busId,email,seats) {
       throw new Error(error);
     }
 }
+
+export async function getBookingByUser(studentId) {
+  const response = await fetch('https://seat-reservation-backend-production.up.railway.app/booking/findbyuser', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ student_id:studentId }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    const error = await response.text();
+    throw new Error(error);
+  }
+}

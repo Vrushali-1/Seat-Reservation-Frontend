@@ -11,7 +11,10 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 //core
 import "primereact/resources/primereact.min.css";
 //icons
-import "primeicons/primeicons.css";                                         
+import "primeicons/primeicons.css";  
+
+
+import UserBookings from "./components/UserBookings";
          
 function App() {
   const location = useLocation();
@@ -30,7 +33,7 @@ function App() {
               <Route path="/booking/:bus_id" element={<BusSearchComponent/>} />
               <Route path="/busreservation" element={<BusReservation/>} />
               <Route path="/header" element={<HeaderComponent/>} />
-
+              <Route path="/bookings" element={<UserBookings/>}/>
             </Routes>
         )}
     

@@ -8,6 +8,7 @@ import './BusReservation.css';
 import {searchBus} from '../services/busService';
 import { useNavigate } from 'react-router-dom';
 import { Message } from 'primereact/message';
+import Navmenu from '../components/Navmenu';
 
 function BusReservation() {
   
@@ -58,11 +59,11 @@ function BusReservation() {
 
   return (
     <div>
-      <h1>Bus Reservation Page</h1>
       <div>
-      <HeaderComponent/>
-    </div>
-      
+       <HeaderComponent/>
+       <Navmenu/>
+      </div>
+      <h1>Bus Search</h1>
       <div>
         <label>From:</label>
         <select value={from} onChange={handleFromChange}>

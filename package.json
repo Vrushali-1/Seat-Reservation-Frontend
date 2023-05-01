@@ -6,10 +6,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.3",
+    "components": "^0.1.0",
     "css-loader": "^6.7.3",
     "primeicons": "^6.0.1",
     "primereact": "^9.2.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-date-picker": "^10.0.3",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
@@ -17,6 +20,8 @@
     "react-time-picker": "^6.0.4",
     "react-tooltip": "^5.10.5",
     "style-loader": "^3.3.2",
+    "styled": "^1.0.0",
+    "styled-components": "^5.3.10",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

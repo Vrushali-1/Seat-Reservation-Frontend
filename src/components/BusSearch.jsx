@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import {searchBusById} from '../services/busService';
 import { createBooking } from '../services/bookingService';
 import { Message } from 'primereact/message';
+import Navmenu from '../components/Navmenu';
+import HeaderComponent  from '../components/Header';
 
 
 // const ROWS = 5; // number of rows in the bus
@@ -107,6 +109,10 @@ export const Bus = (props) => {
 
   return (
     <div className="bus">
+      <div>
+       <HeaderComponent/>
+       <Navmenu/>
+      </div>
       <h1>Bus</h1>
       <div className="seats">
         {seats.map((row) => (
