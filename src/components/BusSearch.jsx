@@ -1,12 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./BusSearch.css"; // import the CSS file for styling
+import { useParams } from 'react-router-dom';
+import {searchBusById} from '../services/busService';
+import { createBooking } from '../services/bookingService';
+import { Message } from 'primereact/message';
 
-const ROWS = 5; // number of rows in the bus
-const SEATS_PER_ROW = 4; // number of seats per row
 
-function Bus() {
+// const ROWS = 5; // number of rows in the bus
+// const SEATS_PER_ROW = 4; // number of seats per row
+
+export const Bus = (props) => {
   // state to track which seats are selected
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [bookedSeats, setBookedSeats] = useState([]);
+  const {bus_id} = useParams();
+  const seats = [];
+  const [user,setUser] = useState(null);
+  const [bookingFail, setBookingFail] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  useEffect(() => {
+    // Call your method here
+    getBusDetails();
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, [props]);
 
   // function to handle seat selection
   const handleSeatSelect = (seat) => {
@@ -14,7 +30,6 @@ function Bus() {
       alert("This seat is already booked.");
       return;
     }
-
     const index = selectedSeats.findIndex(
       (selectedSeat) => selectedSeat.row === seat.row && selectedSeat.seatNumber === seat.seatNumber
     );
@@ -22,35 +37,74 @@ function Bus() {
     if (index === -1) {
       setSelectedSeats([...selectedSeats, seat]);
     } else {
-      setSelectedSeats(selectedSeats.filter((selectedSeat) => selectedSeat !== seat));
+      const updatedSelectedSeats = [...selectedSeats];
+      updatedSelectedSeats.splice(index, 1);
+      setSelectedSeats(updatedSelectedSeats);
     }
   };
 
   // function to handle booking confirmation
-  const handleBooking = () => {
+  const handleBooking = async () => {
     if (selectedSeats.length === 0) {
       alert("Please select at least one seat to book.");
       return;
     }
+    else{
+      try {
+        const response = await createBooking(user.student_id,bus_id,user.email,selectedSeats);
+        if(response.message === 'Booking Done!'){
+          setBookingSuccess(true);
+          setTimeout(() => {
+            getBusDetails();
+          }, 1000);
+          setBookingFail(false);
+        }else{
+          setBookingFail(true);
+          setBookingSuccess(false);
+        }
+      } catch (error) {
+        console.log('error',error);
 
-    // TODO: Implement booking logic here
-
-    alert(`You have successfully booked ${selectedSeats.length} seat(s): ${selectedSeats.map((seat) => `${seat.row}${seat.seatNumber}`).join(", ")}`);
+      }
+    }
     setSelectedSeats([]);
   };
 
-  const ROWS = 4; // number of rows in the bus
-  const SEATS_PER_ROW = 5; // number of seats per row
-  
-  const seats = [];
-  for (let row = 1; row <= ROWS; row++) {
-    const seats1 = [];
-    for (let seatNumber = 1; seatNumber <= SEATS_PER_ROW; seatNumber++) {
-      seats1.push({ row, seatNumber, booked: false });
+  const getBusDetails = async () => {
+    setBookingSuccess(false);
+    setBookingFail(false);
+    try {
+      const response = await searchBusById(bus_id);
+      if(response.message === 'Found'){
+        setBookedSeats(response.bookedSeats);
+      }
+    } catch (error) {
+      console.log('error',error);
     }
-    seats.push(seats1);
   }
-  
+
+    const ROWS = 4; // number of rows in the bus
+    const SEATS_PER_ROW = 5; // number of seats per row
+    let count = 1;
+    for (let row = 1; row <= ROWS; row++) {
+      const seats1 = [];
+      for (let seatNumber = 1; seatNumber <= SEATS_PER_ROW; seatNumber++) {
+        let isBooked = false;
+        let bookedSeatIndex;
+        if(bookedSeats){
+          bookedSeatIndex = bookedSeats.findIndex(
+            (busSeat) => busSeat.seat_id === count
+          );
+        }
+        if (bookedSeatIndex !== -1) {
+          isBooked = true;
+        }
+        seats1.push({ row, seatNumber, booked: isBooked,seat_id:count,seat_name:`S${count}` });
+        count++;
+      }
+      seats.push(seats1);
+    }  
+
   return (
     <div className="bus">
       <h1>Bus</h1>
@@ -70,19 +124,21 @@ function Bus() {
                 }`}
                 onClick={() => handleSeatSelect(seat)}
               >
-                {seat.seatNumber}
+                {seat.seat_name}
               </div>
             ))}
           </div>
         ))}
       </div>
+      {bookingFail && <Message severity="error" text="Booking Failed!" />}
+      {bookingSuccess && <Message severity="success" text="Booking Successful!" />}
       <div className="booking">
         <button className="confirm-button" onClick={handleBooking}>
           Confirm Booking
         </button>
         <p>
           Selected seats:{" "}
-          {selectedSeats.map((seat) => `${seat.row}${seat.seatNumber}`).join(", ")}
+          {selectedSeats.map((seat) => `${seat.seat_name}`).join(", ")}
         </p>
       </div>
     </div>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { signup } from '../services/signupService';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import { Message } from 'primereact/message';
+
 export const Register = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -9,7 +11,7 @@ export const Register = (props) => {
     const [finalPass, setFinalPass] = useState('');
     const [name, setName] = useState('');
     const [signupFail, setSignupFail] = useState(false);
-    const message = 'Sign up failed!';
+    const [signupSuccess, setSignupSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,10 +21,12 @@ export const Register = (props) => {
             if(response){
                 navigate('/');
                 setSignupFail(false);
+                setSignupSuccess(true);
             }
           } catch (error) {
             console.log('error',error);
             setSignupFail(true); 
+            setSignupSuccess(false);
         }
     }
 
@@ -41,7 +45,8 @@ export const Register = (props) => {
                 <label htmlFor="password">Re-Enter-Password</label>
                 <input value={finalPass} onChange={(e) => setFinalPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 <button type="submit">Sign Up</button>
-                {signupFail && <p style={{ color: 'Red', fontSize:'40px', fontWeight:'bold' }}>{message}</p>}
+                {signupFail && <Message severity="error" text="Registration Failed!" />}
+                {signupSuccess && <Message severity="success" text="Registration Successful!" />}
             </form>
             <button className="link-btn" onClick={() => navigate('/')}>Already have an account? Login here.</button>
             </div>

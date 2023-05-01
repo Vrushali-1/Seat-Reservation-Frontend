@@ -1,8 +1,8 @@
-export async function login(username, password) {
-    const response = await fetch('http://localhost:8080/user/login', {
+export async function createBooking(studentId,busId,email,seats) {
+    const response = await fetch('http://localhost:8080/booking/seatbooking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email:username, password:password }),
+      body: JSON.stringify({ student_id:studentId,bus_id:busId,email:email,seats:seats }),
     });
     if (response.ok) {
       const data = await response.json();
@@ -12,4 +12,3 @@ export async function login(username, password) {
       throw new Error(error);
     }
 }
-  

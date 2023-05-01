@@ -27,7 +27,7 @@ function App() {
         ) : (
           
             <Routes>
-              <Route path="/bussearch" element={<BusSearchComponent/>} />
+              <Route path="/booking/:bus_id" element={<BusSearchComponent/>} />
               <Route path="/busreservation" element={<BusReservation/>} />
               <Route path="/header" element={<HeaderComponent/>} />
 
