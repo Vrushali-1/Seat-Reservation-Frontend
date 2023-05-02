@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -7,18 +7,17 @@ import HeaderComponent  from '../components/Header';
 import './BusReservation.css';
 import {searchBus} from '../services/busService';
 import { useNavigate } from 'react-router-dom';
-import { Message } from 'primereact/message';
+import { Toast } from 'primereact/toast';
 import Navmenu from '../components/Navmenu';
 
 function BusReservation() {
-  
+  const toast = useRef(null);
   const navigate = useNavigate();
  // const [name, setName] = useState("");
  // const [tickets, setTickets] = useState(0);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [isFailed, setIsFailed] = useState(false);
 
   const handleFromChange = (event) => {
     setFrom(event.target.value);
@@ -35,7 +34,7 @@ function BusReservation() {
 
   const handleBook = async () => {
     if ( from ===""|| to === "" || date === "") {
-      alert("Please enter all details.");
+      toast.current.show({severity:'error', summary: 'Error', detail:'Please enter all details', life: 2000});
       return;
     }else{
       try {
@@ -43,15 +42,13 @@ function BusReservation() {
         const response = await searchBus(from,to,date);
         if(response.message === 'Found'){
             const busId = response.bus.bus_id;
-            navigate(`/booking/${busId}`);
-            setIsFailed(false);
+            navigate(`/booking/${busId}`);  
         }else{
-          setIsFailed(true);
+          toast.current.show({severity:'error', summary: 'Error', detail:'No bus found.', life: 1000});
         }
       } catch (error) {
         console.log('error',error);
-        setIsFailed(true);
-
+        toast.current.show({severity:'error', summary: 'Error', detail:'No bus found.', life: 1000});
       }
     }
   }//fix alert pro blem if any dropdown is empty they it should pop up alert
@@ -59,6 +56,7 @@ function BusReservation() {
 
   return (
     <div>
+      <Toast ref={toast} />
       <div>
        <HeaderComponent/>
        <Navmenu/>
@@ -95,7 +93,6 @@ function BusReservation() {
         <DatePicker selected={date} onChange={handleDateChange} />
       </div>
         <button onClick={handleBook}>Search Bus</button>
-        {isFailed && <Message severity="error" text="No bus found!"  />}
     </div>
     
   );

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./BusSearch.css"; // import the CSS file for styling
 import { useParams } from 'react-router-dom';
 import {searchBusById} from '../services/busService';
 import { createBooking } from '../services/bookingService';
-import { Message } from 'primereact/message';
+import { Toast } from 'primereact/toast';
 import Navmenu from '../components/Navmenu';
 import HeaderComponent  from '../components/Header';
 
@@ -12,14 +12,14 @@ import HeaderComponent  from '../components/Header';
 // const SEATS_PER_ROW = 4; // number of seats per row
 
 export const Bus = (props) => {
+  const toast = useRef(null);
   // state to track which seats are selected
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [bookedSeats, setBookedSeats] = useState([]);
   const {bus_id} = useParams();
   const seats = [];
   const [user,setUser] = useState(null);
-  const [bookingFail, setBookingFail] = useState(false);
-  const [bookingSuccess, setBookingSuccess] = useState(false);
+
   useEffect(() => {
     // Call your method here
     getBusDetails();
@@ -48,23 +48,22 @@ export const Bus = (props) => {
   // function to handle booking confirmation
   const handleBooking = async () => {
     if (selectedSeats.length === 0) {
-      alert("Please select at least one seat to book.");
+      toast.current.show({severity:'error', summary: 'Error', detail:'Please select at least one seat to book.', life: 3000});
       return;
     }
     else{
       try {
         const response = await createBooking(user.student_id,bus_id,user.email,selectedSeats);
         if(response.message === 'Booking Done!'){
-          setBookingSuccess(true);
+          toast.current.show({severity:'success', summary: 'Success', detail:'Booking Done!', life: 1000});
           setTimeout(() => {
             getBusDetails();
           }, 1000);
-          setBookingFail(false);
         }else{
-          setBookingFail(true);
-          setBookingSuccess(false);
+          toast.current.show({severity:'error', summary: 'Error', detail:'Booking Failed!', life: 1000});
         }
       } catch (error) {
+        toast.current.show({severity:'error', summary: 'Error', detail:'Booking Failed!', life: 1000});
         console.log('error',error);
 
       }
@@ -73,14 +72,14 @@ export const Bus = (props) => {
   };
 
   const getBusDetails = async () => {
-    setBookingSuccess(false);
-    setBookingFail(false);
     try {
       const response = await searchBusById(bus_id);
       if(response.message === 'Found'){
+        toast.current.show({severity:'success', summary: 'Success', detail:'Bus Details Fetched!', life: 1000});
         setBookedSeats(response.bookedSeats);
       }
     } catch (error) {
+      toast.current.show({severity:'error', summary: 'Error', detail:'Failed to fetch bus details.', life: 1000});
       console.log('error',error);
     }
   }
@@ -109,6 +108,7 @@ export const Bus = (props) => {
 
   return (
     <div className="bus">
+      <Toast ref={toast} />
       <div>
        <HeaderComponent/>
        <Navmenu/>
@@ -136,8 +136,6 @@ export const Bus = (props) => {
           </div>
         ))}
       </div>
-      {bookingFail && <Message severity="error" text="Booking Failed!" />}
-      {bookingSuccess && <Message severity="success" text="Booking Successful!" />}
       <div className="booking">
         <button className="confirm-button" onClick={handleBooking}>
           Confirm Booking

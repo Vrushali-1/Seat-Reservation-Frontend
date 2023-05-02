@@ -27,3 +27,18 @@ export async function getBookingByUser(studentId) {
     throw new Error(error);
   }
 }
+
+export async function deleteBooking(booking_id) {
+  const response = await fetch('https://seat-reservation-backend-production.up.railway.app/booking/cancelbooking', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ booking_id:booking_id }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    const error = await response.text();
+    throw new Error(error);
+  }
+}
