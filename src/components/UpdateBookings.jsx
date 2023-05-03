@@ -5,7 +5,6 @@ import {searchBusById} from '../services/busService';
 import { Toast } from 'primereact/toast';
 import Navmenu from '../components/Navmenu';
 import HeaderComponent  from '../components/Header';
-import { useNavigate } from 'react-router-dom';
 
 export const UpdateBooking = (props)  => {
     const toast = useRef(null);
@@ -14,13 +13,10 @@ export const UpdateBooking = (props)  => {
     const [bookedSeats, setBookedSeats] = useState([]);
     const {bus_id} = useParams();
     const seats = [];
-    const navigate = useNavigate();
-    const [user,setUser] = useState(null);
   
     useEffect(() => {
       // Call your method here
       getBusDetails();
-      setUser(JSON.parse(localStorage.getItem('user')));
     }, [props]);
   
     // function to handle seat selection
