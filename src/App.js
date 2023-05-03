@@ -5,6 +5,7 @@ import Register  from "./components/Register";
 import  BusSearchComponent  from "./components/BusSearch";
 import  BusReservation  from "./components/BusReservation";
 import HeaderComponent from "./components/Header";
+import UpdateBooking from "./components/UpdateBookings";
 import { Routes,Route, useLocation} from 'react-router-dom';
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -34,6 +35,7 @@ function App() {
               <Route path="/busreservation" element={<BusReservation/>} />
               <Route path="/header" element={<HeaderComponent/>} />
               <Route path="/bookings" element={<UserBookings/>}/>
+              <Route path="/updatebookings" element={<UpdateBooking/>}/>
             </Routes>
         )}
     

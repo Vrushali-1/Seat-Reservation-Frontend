@@ -53,7 +53,7 @@ const UserBookings = (props) => {
         return (
           <div>
             <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-mr-2" rounded outlined onClick={confirm1}  />&nbsp;&nbsp;&nbsp;
-            <Button icon="pi pi-pencil" className="p-button-rounded p-button-success" rounded outlined onClick={() => this.updateRow(rowData)} />&nbsp;&nbsp;&nbsp;
+            {/* <Button icon="pi pi-pencil" className="p-button-rounded p-button-success" rounded outlined onClick={() => updateRow(rowData)} />&nbsp;&nbsp;&nbsp; */}
             <Button icon="pi pi-file-pdf" className="p-button-rounded p-button-info" rounded outlined onClick={() => { showPdf(rowData); generatePdf()}} />
           </div>
         );
@@ -76,6 +76,11 @@ const UserBookings = (props) => {
             </div>
           );
     }
+
+    // const updateRow = (rowData) => {
+    //     console.log('rowdata',rowData);
+    //     navigate('/updatebookings', { state: { bookingData: rowData } });
+    // }
 
     const accept = async () => {
         console.log('inside cancel booking');
@@ -217,7 +222,7 @@ const UserBookings = (props) => {
             <div>
                 <HeaderComponent/>
                 <Navmenu/>
-                <br/><br/>
+                <h1>Bookings</h1>
                 <div className="card">
                     <DataTable stripedRows value={bookings} header={header} tableStyle={{ minWidth: '50rem' }}>
                     <Column field="booking_id" header="Booking ID"></Column>

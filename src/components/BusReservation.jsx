@@ -18,6 +18,7 @@ function BusReservation() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("");
 
   const handleFromChange = (event) => {
     setFrom(event.target.value);
@@ -29,6 +30,10 @@ function BusReservation() {
 
   const handleDateChange = (date) => {
     setDate(date);
+  }
+
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
   }
 
 
@@ -91,6 +96,22 @@ function BusReservation() {
       <div>
         <label>Date:</label>
         <DatePicker selected={date} onChange={handleDateChange} />
+      </div>
+      <div>
+      <label>Time:</label>
+        <select value={time} onChange={handleTimeChange}>
+        <option value="">Select time</option>
+        <option value="9:00 AM">9:00 AM</option>
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="11:00 AM">11:00 AM</option>
+        <option value="12:00 PM">12:00 PM</option>
+        <option value="1:00 PM">1:00 PM</option>
+        <option value="3:00 PM">3:00 PM</option>
+        <option value="4:00 PM">4:00 PM</option>
+        <option value="5:00 PM">5:00 PM</option>
+        <option value="6:00 PM">6:00 PM</option>
+        <option value="7:00 PM">7:00 PM</option>
+        </select>
       </div>
         <button onClick={handleBook}>Search Bus</button>
     </div>

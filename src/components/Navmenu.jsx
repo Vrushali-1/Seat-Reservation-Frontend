@@ -1,11 +1,13 @@
 import { Menubar } from 'primereact/menubar';
 import bus from "../images/bus.jpg";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export const Navmenu = () => {
     const items = [];
-    const start = <img alt="logo" src=  {bus} height="40" className="mr-2"></img>;
+    const start = <div><Link to="/busreservation">
+    <img alt="logo" src=  {bus} height="40" className="mr-2"></img></Link>
+</div>;
     
     const navigate = useNavigate();
 
