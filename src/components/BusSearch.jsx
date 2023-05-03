@@ -24,7 +24,8 @@ export const Bus = (props) => {
     // Call your method here
     getBusDetails();
     setUser(JSON.parse(localStorage.getItem('user')));
-  }, [props]);
+    // eslint-disable-next-line
+  },[]);
 
   // function to handle seat selection
   const handleSeatSelect = (seat) => {
@@ -94,6 +95,7 @@ export const Bus = (props) => {
         let bookedSeatIndex;
         if(bookedSeats){
           bookedSeatIndex = bookedSeats.findIndex(
+            // eslint-disable-next-line
             (busSeat) => busSeat.seat_id === count
           );
         }

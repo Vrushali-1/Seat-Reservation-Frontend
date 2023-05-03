@@ -17,7 +17,8 @@ export const UpdateBooking = (props)  => {
     useEffect(() => {
       // Call your method here
       getBusDetails();
-    }, [props]);
+      // eslint-disable-next-line
+    },[]);
   
     // function to handle seat selection
     const handleSeatSelect = (seat) => {
@@ -88,6 +89,7 @@ export const UpdateBooking = (props)  => {
           let bookedSeatIndex;
           if(bookedSeats){
             bookedSeatIndex = bookedSeats.findIndex(
+               // eslint-disable-next-line
               (busSeat) => busSeat.seat_id === count
             );
           }

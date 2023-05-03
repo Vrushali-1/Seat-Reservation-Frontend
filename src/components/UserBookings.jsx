@@ -28,7 +28,8 @@ const UserBookings = (props) => {
     
     useEffect(() => {
             getBookings();
-    },[]);
+            // eslint-disable-next-line
+    },[]) ;
     const cols = [
         { field: 'booking_id', header: 'Booking ID' },
         {field:'createdAt', header:'Booking Date'},
