@@ -1,33 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { login } from '../services/loginService';
 import { useNavigate } from 'react-router-dom';
 import './Login.component.css';
+import { Toast } from 'primereact/toast';
+        
 
 export const Login = (props) => {
+    const toast = useRef(null);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [loginFail, setLoginFail] = useState(false);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email);
-        console.log(pass);
         try {
             const response = await login(email, pass);
             if(response.message === 'Successfully Logged In!'){
-                navigate('/busreservation');
-                setLoginFail(false);
+                toast.current.show({severity:'success', summary: 'Success', detail:'Login Successful!', life: 1000});
+                localStorage.setItem("user", JSON.stringify(response.user));
+                setTimeout(() => {
+                    navigate('/busreservation');
+                  }, 1000);
+            }
+            else{
+                toast.current.show({severity:'error', summary: 'Error', detail:'Login Failed!', life: 1000});
             }
           } catch (error) {
+            toast.current.show({severity:'error', summary: 'Error', detail:'Login Failed!', life: 1000});
             console.log('error',error);
-            setLoginFail(true); 
         }
     }
 
     return (
         <div className="app">
+            <Toast ref={toast} />
             <div className="auth-form-container">
             <h1>Bus Seat Reservation</h1>
             <form className="login-form" onSubmit={handleSubmit}>
@@ -36,12 +42,11 @@ export const Login = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 <button type="submit">Log In</button>
-                {loginFail && <p style={{ color: 'red', fontSize:'40px', fontWeight:'bold' }}>Login Failed!</p>}
-
             </form>
             <button className="link-btn" onClick={() => navigate('/register')}>Don't have an account? Register here.</button>
             </div>
         </div>
+        
     )
 }
 

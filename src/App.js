@@ -5,13 +5,17 @@ import Register  from "./components/Register";
 import  BusSearchComponent  from "./components/BusSearch";
 import  BusReservation  from "./components/BusReservation";
 import HeaderComponent from "./components/Header";
+import UpdateBooking from "./components/UpdateBookings";
 import { Routes,Route, useLocation} from 'react-router-dom';
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
 //core
 import "primereact/resources/primereact.min.css";
 //icons
-import "primeicons/primeicons.css";                                         
+import "primeicons/primeicons.css";  
+
+
+import UserBookings from "./components/UserBookings";
          
 function App() {
   const location = useLocation();
@@ -27,10 +31,11 @@ function App() {
         ) : (
           
             <Routes>
-              <Route path="/bussearch" element={<BusSearchComponent/>} />
+              <Route path="/booking/:bus_id" element={<BusSearchComponent/>} />
               <Route path="/busreservation" element={<BusReservation/>} />
               <Route path="/header" element={<HeaderComponent/>} />
-
+              <Route path="/bookings" element={<UserBookings/>}/>
+              <Route path="/updatebookings" element={<UpdateBooking/>}/>
             </Routes>
         )}
     
