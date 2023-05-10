@@ -43,4 +43,22 @@ export async function getSeats() {
     throw new Error(error);
   }
 }
+
+export async function addBus(from, to, travelDate, email) {
+  const newDate = new Date(travelDate);
+  const day = newDate.getDate();
+  newDate.setDate(day - 1);
+  const response = await fetch('https://seat-reservation-backend-production.up.railway.app/bus/create', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ departure:from, destination:to,travel_date:newDate, email:email }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    const error = await response.text();
+    throw new Error(error);
+  }
+}
   

@@ -49,11 +49,11 @@ function BusReservation() {
             const busId = response.bus.bus_id;
             navigate(`/booking/${busId}`);  
         }else{
-          toast.current.show({severity:'error', summary: 'Error', detail:'No bus found.', life: 1000});
+          toast.current.show({severity:'error', summary: 'Error', detail:response.message, life: 1000});
         }
       } catch (error) {
         console.log('error',error);
-        toast.current.show({severity:'error', summary: 'Error', detail:'No bus found.', life: 1000});
+        toast.current.show({severity:'error', summary: 'Error', detail:'Error', life: 1000});
       }
     }
   }//fix alert pro blem if any dropdown is empty they it should pop up alert

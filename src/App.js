@@ -13,6 +13,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 //icons
 import "primeicons/primeicons.css";  
+import  BusRequest  from "./components/BusRequest";
 
 
 import UserBookings from "./components/UserBookings";
@@ -36,6 +37,7 @@ function App() {
               <Route path="/header" element={<HeaderComponent/>} />
               <Route path="/bookings" element={<UserBookings/>}/>
               <Route path="/updatebookings" element={<UpdateBooking/>}/>
+              <Route path="/busrequest" element={<BusRequest/>}/>
             </Routes>
         )}
     
