@@ -53,9 +53,9 @@ const UserBookings = (props) => {
         id = rowData.booking_id;
         return (
           <div>
-            <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-mr-2" rounded outlined onClick={confirm1}  />&nbsp;&nbsp;&nbsp;
+            <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-mr-2" rounded  onClick={confirm1}  />&nbsp;&nbsp;&nbsp;
             {/* <Button icon="pi pi-pencil" className="p-button-rounded p-button-success" rounded outlined onClick={() => updateRow(rowData)} />&nbsp;&nbsp;&nbsp; */}
-            <Button icon="pi pi-file-pdf" className="p-button-rounded p-button-info" rounded outlined onClick={() => { showPdf(rowData); generatePdf()}} />
+            <Button icon="pi pi-file-pdf" className="p-button-rounded p-button-info" rounded  onClick={() => { showPdf(rowData); generatePdf()}} />
           </div>
         );
     }
@@ -73,7 +73,7 @@ const UserBookings = (props) => {
     const viewTemplate = (rowData) => {
         return (
             <div>
-              <Button icon="pi pi-eye" className="p-button-rounded p-button-secondary p-mr-2" rounded outlined onClick={(e) => {showPdf(rowData);op.current.toggle(e)}} />&nbsp;&nbsp;&nbsp;
+              <Button icon="pi pi-eye" className="p-button-rounded p-button-secondary p-mr-2" rounded  onClick={(e) => {showPdf(rowData);op.current.toggle(e)}} />&nbsp;&nbsp;&nbsp;
             </div>
           );
     }
@@ -209,9 +209,10 @@ const UserBookings = (props) => {
     };
 
     const header = (
-        <div className="flex align-items-center justify-content-end gap-2">
-            <Button type="button" icon="pi pi-file-excel" severity="success" rounded outlined onClick={exportExcel} data-pr-tooltip="XLS" />&nbsp;&nbsp;&nbsp;
-            <Button type="button" icon="pi pi-file-pdf" severity="warning" rounded outlined onClick={exportPdf} data-pr-tooltip="PDF" />
+        <div style={{textAlign: 'right'}}className="flex align-items-center justify-content-end gap-2">
+            <Button type="button" icon="pi pi-file-excel" severity="success" rounded  onClick={exportExcel} data-pr-tooltip="XLS" />&nbsp;&nbsp;&nbsp;
+            <Button type="button" icon="pi pi-file-pdf" severity="warning" rounded  onClick={exportPdf} data-pr-tooltip="PDF" />&nbsp;&nbsp;&nbsp;
+            <Button type="button" icon="pi pi-refresh" severity="success" rounded  onClick={getBookings} data-pr-tooltip="Refresh" />
         </div>
     );
 
